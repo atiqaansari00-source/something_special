@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Variable 🌙</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Dancing+Script:wght@700&display=swap');
+        
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'Poppins', sans-serif; transition: background 1s ease; }
+        
+        .screen { display: none; height: 100vh; width: 100vw; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; box-sizing: border-box; }
+        .active { display: flex; }
+
+        /* Screen 1: Soft Pink/Purple */
+        #s1 { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #4a4e69; }
+        
+        /* Screen 2: Deep Blue/Teal */
+        #s2 { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; }
+
+        /* Screen 3: Dark Night */
+        #s3 { background: #000; color: white; cursor: crosshair; }
+
+        /* Screen 4: Golden/Warm */
+        #s4 { background: linear-gradient(135deg, #e6e9f0 0%, #eef1f5 100%); color: #2d3436; }
+
+        .btn { background: white; border: none; padding: 15px 35px; color: #ff4d6d; font-weight: bold; border-radius: 50px; cursor: pointer; margin-top: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: 0.3s; }
+        .btn:hover { transform: scale(1.1); box-shadow: 0 15px 25px rgba(0,0,0,0.2); }
+
+        .gift-box { width: 100px; height: 100px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center; border-radius: 20px; border: 2px solid white; cursor: pointer; font-size: 1.5rem; transition: 0.5s; margin: 10px; }
+        .gift-box.opened { background: #fff; color: #2a5298; transform: scale(1.1) rotate(10deg); }
+
+        .moon { font-size: 8rem; filter: drop-shadow(0 0 30px #fff); display: none; animation: glow 2s infinite alternate; }
+        @keyframes glow { from { filter: drop-shadow(0 0 10px #fff); } to { filter: drop-shadow(0 0 40px #f1c40f); } }
+
+        .letter-box { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); width: 80%; max-width: 450px; display: none; transform: translateY(50px); opacity: 0; transition: 1s; }
+        .letter-box.show { transform: translateY(0); opacity: 1; }
+        .shayeri { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: #d63031; line-height: 1.8; }
+    </style>
+</head>
+<body>
+    <audio id="bgMusic" loop>
+        <source src="https://open.spotify.com/track/16XEVyPh5NT31CAAqPbxQF?si=ec0ce3175fa24b52" type="audio/mpeg">
+    </audio>
+    <div id="s1" class="screen active">
+        <h1 style="font-size: 2.5rem;">Areee aa gaye aap... Aapka hi wait ho rha tha... <br> Shukriya ❤️</h1>
+        <p>Aapke aane se server ka load thoda badh gaya hai 🫣</p>
+        <button class="btn" onclick="next(2)">Chalo saath chalein →</button>
+    </div>
+
+    <div id="s2" class="screen">
+        <h2 style="margin-bottom: 40px;">Ek safar, aapke saath...yaad hai woh pehla call</h2>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+            <div id="g1" class="gift-box" onclick="openGift(1, '2024 📞')">🎁</div>
+            <div id="g2" class="gift-box" onclick="openGift(2, '2025 🥲')">🎁</div>
+            <div id="g3" class="gift-box" onclick="openGift(3, '2026 ❤️')">🎁</div>
+        </div>
+        <button id="nextBtn2" class="btn" style="display:none; color: #2a5298;" onclick="next(3)">Aage aur bhi kuch hai ✨</button>
+    </div>
+
+    <div id="s3" class="screen">
+        <div id="darkInstruction">
+            <h1 style="color: white; opacity: 0.7;">Kaafi andhera nhi lag raha yahan?</h1>
+            <p style="color: #6fffe9;">click karke dekhte hain...</p>
+        </div>
+        <div class="moon" id="moon">🌙</div>
+        <div id="eidText" style="display:none;">
+            <h2 style="margin-top:20px; color: #f1c40f;">Aree yeah kya artifical Chand aa gaya.... asli chand toh aap ho 🫣🫣! ✨</h2>
+            <p> (Wese ye chand aap se kam hi chamak raha hai 😉) </p>
+            <button class="btn" onclick="next(4)">Bas yeh aakhri hai 💌</button>
+        </div>
+    </div>
+
+    <div id="s4" class="screen">
+        <div id="envelope" class="btn" onclick="revealLetter()" style="padding: 40px; font-size: 1.5rem;">Click to Open 💌</div>
+        
+        <div id="letterBox" class="letter-box">
+            <div class="shayeri">
+                kya Kahu kuch kehna baki hai... ✨ <br><br>
+                Dekha jaye toh aapke saath rehna baki hai....kuch aur dard hai jo abhi sehna baki hai... <b>aapki</b> baaton mien uljhi mien saari raat rehti hu. <br><br>
+                kuch toh baat hai jo main <b>kehna</b> chahti hu.... ❣️ <br><br>
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function next(n) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('s' + n).classList.add('active');
+            
+            if(n === 3) {
+                document.getElementById('s3').onclick = function() {
+                    this.style.background = "radial-gradient(circle at 50% 50%, #1b263b 0%, #000 100%)";
+                    document.getElementById('darkInstruction').style.display = 'none';
+                    document.getElementById('moon').style.display = 'block';
+                    document.getElementById('eidText').style.display = 'block';
+                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+                };
+            }
+        }
+
+        let openedCount = 0;
+        function openGift(n, text) {
+            let g = document.getElementById('g' + n);
+            if(!g.classList.contains('opened')) {
+                g.classList.add('opened');
+                g.innerText = text;
+                openedCount++;
+                if(openedCount === 3) document.getElementById('nextBtn2').style.display = 'block';
+            }
+        }
+
+        function revealLetter() {
+            document.getElementById('envelope').style.display = 'none';
+            const lb = document.getElementById('letterBox');
+            lb.style.display = 'block';
+            setTimeout(() => lb.classList.add('show'), 100);
+        }
+    </script>
+</body>
+</html>
